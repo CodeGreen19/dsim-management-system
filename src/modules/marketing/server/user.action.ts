@@ -30,7 +30,7 @@ export const userLogin = async (loginInfo: LoginFormSchemaType) => {
       httpOnly: true,
       path: "/",
       sameSite: "strict",
-      secure: process.env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "production",
     });
 
     return { message: "Login successfull" };

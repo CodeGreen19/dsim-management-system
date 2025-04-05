@@ -2,6 +2,21 @@ import Image from "next/image";
 import React from "react";
 import { Timeline } from "@/modules/marketing/Timeline";
 
+import image1 from "../../../public/students/m-student-1.jpg";
+import image2 from "../../../public/students/m-student-2.jpg";
+import image3 from "../../../public/students/m-student-teacher.jpg";
+import image4 from "../../../public/students/m-student-4.jpg";
+
+import vision1 from "../../../public/vision/4.jpg";
+import vision2 from "../../../public/vision/1.png";
+import vision3 from "../../../public/vision/2.jpg";
+import vision4 from "../../../public/vision/3.jpg";
+
+import contact1 from "../../../public/contact/contact-1.jpg";
+import contact2 from "../../../public/contact/contact-3.jpg";
+import contact3 from "../../../public/contact/contact-2.jpg";
+import contact4 from "../../../public/photo.png";
+
 export function TimelineComp() {
   const data = [
     {
@@ -13,36 +28,32 @@ export function TimelineComp() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Image
-              // src="https://img.freepik.com/premium-photo/muslim-child-learning-quran-with-teacher-madrasa-school_734790-5042.jpg"
-              src={"/students/m-student-1.jpg"}
+              src={image1}
               alt="startup template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              // src="https://assets.thehansindia.com/h-upload/2023/10/04/1386403-muslims.webp"
-              src={"/students/m-student-2.jpg"}
+              src={image2}
               alt="startup template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              // src="https://static.vecteezy.com/system/resources/thumbnails/048/682/339/small/closeup-of-muslim-children-in-elegant-attire-reciting-the-quran-showcasing-their-devotion-and-cultural-heritage-generated-image-photo.jpg"
-              src={"/students/m-student-teacher.jpg"}
+              src={image3}
               alt="startup template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              // src="https://img.freepik.com/free-photo/medium-shot-islamic-man-reading_23-2151064127.jpg?t=st=1743657099~exp=1743660699~hmac=d6e11fcc2d2f504d031eb9d2c868670f84f1355238834a7a3fa9b73f9ef57827&w=1380"
-              src={"/students/m-student-4.jpg"}
+              src={image4}
               alt="startup template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
           </div>
         </div>
@@ -53,43 +64,40 @@ export function TimelineComp() {
       content: (
         <div>
           <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            In our Madrasha, education is a journey of both knowledge and faith.
-            We strive to provide a nurturing environment where students grow in
-            their understanding of deen and dunya.
+            In our Madrasha, education is a journey of both knowledge and
+            faith...
           </p>
           <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Knowledge is a trust, and we take this responsibility seriously.
-            Here, you will find a blend of traditional Islamic education and
-            modern learning, ensuring a well-rounded path for every student.
+            Knowledge is a trust, and we take this responsibility seriously...
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Image
-              src="/vision/4.jpg"
+              src={vision1}
               alt="hero template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              src="/vision/1.png"
+              src={vision2}
               alt="feature template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              src="/vision/2.jpg"
+              src={vision3}
               alt="bento template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              src="/vision/3.jpg"
+              src={vision4}
               alt="cards template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
           </div>
         </div>
@@ -127,41 +135,42 @@ export function TimelineComp() {
 
           <div className="grid grid-cols-2 gap-4">
             <Image
-              src="/contact/contact-1.jpg"
+              src={contact1}
               alt="hero template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              src="/contact/contact-3.jpg"
+              src={contact2}
               alt="feature template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              src="/contact/contact-2.jpg"
+              src={contact3}
               alt="bento template"
               width={500}
               height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
             <Image
-              src="/photo.png"
+              src={contact4}
               alt="cards template"
               width={500}
               height={500}
-              className="rounded-lg bg-white object-contain h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="rounded-lg bg-white object-contain h-20 md:h-44 lg:h-60 w-full shadow-[...]"
             />
           </div>
         </div>
       ),
     },
   ];
+
   return (
     <div className="min-h-screen w-full">
-      <div className=" w-full">
+      <div className="w-full">
         <Timeline data={data} />
       </div>
     </div>
