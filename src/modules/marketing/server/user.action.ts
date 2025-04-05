@@ -6,7 +6,7 @@ import { env } from "@/data/env/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 
 export const userLogin = async (loginInfo: LoginFormSchemaType) => {
   try {
@@ -17,12 +17,12 @@ export const userLogin = async (loginInfo: LoginFormSchemaType) => {
       return { error: "invalid credentials" };
     }
 
-    const cookieStore = await cookies();
+    // const cookieStore = await cookies();
 
-    // Generate JWT token
-    const token = jwt.sign({ userName: loginInfo.userName }, env.JWT_SECRET, {
-      expiresIn: "365d",
-    });
+    // // Generate JWT token
+    // const token = jwt.sign({ userName: loginInfo.userName }, env.JWT_SECRET, {
+    //   expiresIn: "365d",
+    // });
 
     // cookieStore.set({
     //   name: "auth_token",
