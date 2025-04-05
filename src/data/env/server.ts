@@ -10,7 +10,6 @@ export const env = createEnv({
     ADMIN_USERNAME: z.string().min(1),
     ADMIN_PASSWORD: z.string().min(1),
     JWT_SECRET: z.string().min(1),
-    NODE_ENV: z.string().min(1),
   },
   experimental__runtimeEnv: process.env,
 });
