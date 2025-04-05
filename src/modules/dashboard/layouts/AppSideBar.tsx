@@ -23,6 +23,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import adminUserImg from "../../../../public/admin-user.jpg";
 
 const sidebarOptions = [
   {
@@ -131,7 +132,7 @@ export function AppSidebar() {
               <div className="flex items-center gap-2 mt-5">
                 <div className="size-8 overflow-hidden bg-white rounded-full">
                   <Image
-                    src={"/admin-user.jpg"}
+                    src={adminUserImg}
                     height={30}
                     width={30}
                     alt="profile"

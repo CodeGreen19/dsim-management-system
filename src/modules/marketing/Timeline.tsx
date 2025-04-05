@@ -13,6 +13,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/ui/button";
 import Login from "./Login";
 import { useUserAuth } from "./hooks/use-user";
+import logo from "../../../public/dsim-logo.png";
 
 interface TimelineEntry {
   title: string;
@@ -58,7 +59,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         className="max-w-7xl mx-auto pb-5 pt-16 px-4 md:px-8 lg:px-10"
       >
         <Image
-          src={"/dsim-logo.png"}
+          src={logo}
           height={120}
           width={120}
           alt="logo"
