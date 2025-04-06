@@ -1,3 +1,5 @@
+"use client";
+
 import { DashboardOverView } from "@/modules/dashboard/overviews";
 import React from "react";
 

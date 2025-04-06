@@ -14,25 +14,23 @@ export const createStudentFees = async ({
   feesInfo: StudentFeesSchemaType;
   studentId: string;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = studentFeesSchema.safeParse(feesInfo);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-      //insert data
-      await tx.insert(studentFees).values({
-        mealFees: Number(data.meal_fees),
-        educationFees: Number(data.education_fee),
-        month: data.month,
-        year: data.year,
-        studentId,
-      });
-      return { message: "New Record Created " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = studentFeesSchema.safeParse(feesInfo);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+    //insert data
+    await db.insert(studentFees).values({
+      mealFees: Number(data.meal_fees),
+      educationFees: Number(data.education_fee),
+      month: data.month,
+      year: data.year,
+      studentId,
+    });
+    return { message: "New Record Created " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 
 export const getFeesRecords = async (studentId: string) => {

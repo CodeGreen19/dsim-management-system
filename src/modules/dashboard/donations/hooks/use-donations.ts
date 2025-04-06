@@ -14,10 +14,12 @@ export function useDonations() {
   return useInfiniteQuery({
     queryKey: ["donations"],
     queryFn: async ({ pageParam = 0 }) =>
-      getDonationsPaginated(LIMIT, pageParam),
+      await getDonationsPaginated(LIMIT, pageParam),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) =>
-      lastPage.length === LIMIT ? allPages.length * LIMIT : undefined,
+    getNextPageParam: (lastPage, allPages) => {
+      if (!Array.isArray(lastPage)) return undefined; // 👈 prevents the crash
+      return lastPage.length === LIMIT ? allPages.length * LIMIT : undefined;
+    },
   });
 }
 

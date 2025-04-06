@@ -8,7 +8,7 @@ import {
   getTeacherSalaryPaginated,
 } from "../server/teacher.action";
 
-const LIMIT = 5;
+const LIMIT = 10;
 
 export function useSalaryRecords(teacherId: string) {
   return useInfiniteQuery({

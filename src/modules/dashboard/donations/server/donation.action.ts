@@ -13,26 +13,24 @@ export const createDonation = async ({
 }: {
   donationInfo: DonationValueType;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = donationSchema.safeParse(donationInfo);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-
-      //insert data
-      await tx.insert(donations).values({
-        donationDetails: data.donationDetails,
-        donationType: data.donationType,
-        donorName: data.donorName,
-        isMoney: data.amount ? "money" : "other",
-        amount: data.amount ? Number(data.amount) : 0,
-      });
-      return { message: "Donation Added " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = donationSchema.safeParse(donationInfo);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+
+    //insert data
+    await db.insert(donations).values({
+      donationDetails: data.donationDetails,
+      donationType: data.donationType,
+      donorName: data.donorName,
+      isMoney: data.amount ? "money" : "other",
+      amount: data.amount ? Number(data.amount) : 0,
+    });
+    return { message: "Donation Added " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 
 export async function getDonationsPaginated(

@@ -23,33 +23,31 @@ export const createTeacher = async ({
   teacher: TeacherSchemaType;
   base64: string | null;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = teacherSchema.safeParse(teacher);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-
-      const imgInfo = await uploadToCloude({
-        base64,
-        folder: "teacher",
-      });
-
-      //insert data
-      await tx.insert(teachers).values({
-        name: data.fullName,
-        phone: data.phone_number,
-        salaryAmount: Number(data.salary),
-        educationDes: data.education_des,
-        email: data.email,
-        imageUrl: imgInfo.secure_url,
-        imagePublicId: imgInfo.public_id,
-      });
-      return { message: "New Teacher Created " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = teacherSchema.safeParse(teacher);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+
+    const imgInfo = await uploadToCloude({
+      base64,
+      folder: "teacher",
+    });
+
+    //insert data
+    await db.insert(teachers).values({
+      name: data.fullName,
+      phone: data.phone_number,
+      salaryAmount: Number(data.salary),
+      educationDes: data.education_des,
+      email: data.email,
+      imageUrl: imgInfo.secure_url,
+      imagePublicId: imgInfo.public_id,
+    });
+    return { message: "New Teacher Created " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 export const updateTeacher = async ({
   teacher,
@@ -98,25 +96,23 @@ export async function getAllTeachers() {
   return await db.select().from(teachers).orderBy(desc(teachers.createdAt));
 }
 export async function deleteTeacher({ teacherId }: { teacherId: string }) {
-  return await db.transaction(async (tx) => {
-    try {
-      const [teacher] = await tx
-        .select({ publicId: teachers.imagePublicId })
-        .from(teachers)
-        .where(eq(teachers.id, teacherId));
-      if (!teacher) {
-        return { error: "teacher not found !" };
-      }
-      if (teacher.publicId) {
-        await deleteFromCloude(teacher.publicId);
-      }
-
-      await tx.delete(teachers).where(eq(teachers.id, teacherId));
-      return { message: " Teacher Deleted " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const [teacher] = await db
+      .select({ publicId: teachers.imagePublicId })
+      .from(teachers)
+      .where(eq(teachers.id, teacherId));
+    if (!teacher) {
+      return { error: "teacher not found !" };
     }
-  });
+    if (teacher.publicId) {
+      await deleteFromCloude(teacher.publicId);
+    }
+
+    await db.delete(teachers).where(eq(teachers.id, teacherId));
+    return { message: " Teacher Deleted " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 }
 
 export async function getTeacherSalaryPaginated(

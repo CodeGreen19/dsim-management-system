@@ -75,7 +75,7 @@ export default function AddDonationForm() {
           name="donationType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Donation Type</FormLabel>
+              <FormLabel>Donation Type *</FormLabel>
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
@@ -101,7 +101,7 @@ export default function AddDonationForm() {
           name="isMoney"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Donation Type</FormLabel>
+              <FormLabel> Category *</FormLabel>
               <FormControl>
                 <RadioGroup
                   value={field.value}
@@ -134,7 +134,7 @@ export default function AddDonationForm() {
             name="amount"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Amount (in Taka)</FormLabel>
+                <FormLabel>Amount (in Taka) *</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" placeholder="Enter amount" />
                 </FormControl>
@@ -150,7 +150,7 @@ export default function AddDonationForm() {
           name="donationDetails"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Donation Details</FormLabel>
+              <FormLabel>Donation Details *</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
@@ -168,7 +168,7 @@ export default function AddDonationForm() {
           name="donorName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Donor Name</FormLabel>
+              <FormLabel>Donor Name *</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="Enter donor name" />
               </FormControl>

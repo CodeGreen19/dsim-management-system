@@ -13,26 +13,24 @@ export const createSpending = async ({
 }: {
   spendingInfo: SpendingSchemaType;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = spendingSchema.safeParse(spendingInfo);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-
-      //insert data
-      await tx.insert(spendings).values({
-        amount: Number(data.amount),
-        month: data.month,
-        spendingDetails: data.spendingDetails,
-        spendingField: data.spendingField,
-        year: data.year,
-      });
-      return { message: "Spendings Added " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = spendingSchema.safeParse(spendingInfo);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+
+    //insert data
+    await db.insert(spendings).values({
+      amount: Number(data.amount),
+      month: data.month,
+      spendingDetails: data.spendingDetails,
+      spendingField: data.spendingField,
+      year: data.year,
+    });
+    return { message: "Spendings Added " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 
 export async function getSpendingsPaginated(

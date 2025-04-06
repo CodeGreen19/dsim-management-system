@@ -22,55 +22,53 @@ export const createStudent = async ({
   student: AddStudentSchemaType;
   base64: string | null;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = AddStudentSchema.safeParse(student);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-
-      const imgInfo = await uploadToCloude({
-        base64,
-        folder: "student",
-      });
-
-      let lastStudentRoll = 0;
-      if (data.course) {
-        const [lastStudent] = await db
-          .select({ genRoll: students.genRoll })
-          .from(students)
-          .where(
-            and(
-              eq(students.course, data.course),
-              eq(students.sessionRange, data.session_range)
-            )
-          )
-          .orderBy(desc(students.genRoll))
-          .limit(1);
-        if (lastStudent) {
-          lastStudentRoll = lastStudent.genRoll;
-        }
-      }
-      //insert data
-      await tx.insert(students).values({
-        name: data.name,
-        fatherName: data.fatherName,
-        motherName: data.motherName,
-        address: data.address!,
-        course: data.course!,
-        dataOfBirth: data.dateOfBirth,
-        gender: data.gender!,
-        genRoll: lastStudentRoll + 1,
-        imageUrl: imgInfo.secure_url,
-        imagePublicId: imgInfo.public_id,
-        sessionRange: data.session_range!,
-        admissionTimePaid: Number(data.admissionTimePaid),
-      });
-      return { message: "New Student Created " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = AddStudentSchema.safeParse(student);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+
+    const imgInfo = await uploadToCloude({
+      base64,
+      folder: "student",
+    });
+
+    let lastStudentRoll = 0;
+    if (data.course) {
+      const [lastStudent] = await db
+        .select({ genRoll: students.genRoll })
+        .from(students)
+        .where(
+          and(
+            eq(students.course, data.course),
+            eq(students.sessionRange, data.session_range)
+          )
+        )
+        .orderBy(desc(students.genRoll))
+        .limit(1);
+      if (lastStudent) {
+        lastStudentRoll = lastStudent.genRoll;
+      }
+    }
+    //insert data
+    await db.insert(students).values({
+      name: data.name,
+      fatherName: data.fatherName,
+      motherName: data.motherName,
+      address: data.address!,
+      course: data.course!,
+      dataOfBirth: data.dateOfBirth,
+      gender: data.gender!,
+      genRoll: lastStudentRoll + 1,
+      imageUrl: imgInfo.secure_url,
+      imagePublicId: imgInfo.public_id,
+      sessionRange: data.session_range!,
+      admissionTimePaid: Number(data.admissionTimePaid),
+    });
+    return { message: "New Student Created " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 
 export const getSingleStudent = async ({ id }: { id: string }) => {
@@ -95,34 +93,32 @@ export const updateStudent = async ({
   student: DBStudentType;
   base64: string | null;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const imgInfo = await uploadToCloude({
-        base64,
-        folder: "student",
-      });
-      if (!student.imageUrl && student.imagePublicId) {
-        await deleteFromCloude(student.imagePublicId!);
-      }
-
-      const studentInfo: DBStudentType = {
-        ...student,
-        imageUrl: student.imageUrl || imgInfo.secure_url,
-        imagePublicId: student.imageUrl
-          ? student.imagePublicId
-          : imgInfo.public_id,
-      };
-
-      //insert data
-      await tx
-        .update(students)
-        .set(studentInfo)
-        .where(eq(students.id, student.id));
-      return { message: " Student Updated " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const imgInfo = await uploadToCloude({
+      base64,
+      folder: "student",
+    });
+    if (!student.imageUrl && student.imagePublicId) {
+      await deleteFromCloude(student.imagePublicId!);
     }
-  });
+
+    const studentInfo: DBStudentType = {
+      ...student,
+      imageUrl: student.imageUrl || imgInfo.secure_url,
+      imagePublicId: student.imageUrl
+        ? student.imagePublicId
+        : imgInfo.public_id,
+    };
+
+    //insert data
+    await db
+      .update(students)
+      .set(studentInfo)
+      .where(eq(students.id, student.id));
+    return { message: " Student Updated " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 
 // query
