@@ -109,7 +109,11 @@ const columns: ColumnDef<StudentListingType>[] = [
             <UpdateStudentInfoModal id={info.row.original.id}>
               <li>Update Info</li>
             </UpdateStudentInfoModal>
-            <ProvideResultModal studentId={info.row.original.id}>
+            <ProvideResultModal
+              imageUrl={info.row.original.imageUrl}
+              userName={info.row.original.name}
+              studentId={info.row.original.id}
+            >
               <li>Provide Result</li>
             </ProvideResultModal>
             <DeleteStudentModal

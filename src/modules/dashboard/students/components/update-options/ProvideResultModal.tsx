@@ -25,9 +25,13 @@ import { StudentResultType } from "../../types";
 const ProvideResultModal = ({
   children,
   studentId,
+  imageUrl,
+  userName,
 }: {
   children: ReactNode;
   studentId: string;
+  imageUrl: string | null;
+  userName: string | null;
 }) => {
   const qc = useQueryClient();
   const [result, setResult] = useState<StudentResultType | undefined>(
@@ -54,13 +58,13 @@ const ProvideResultModal = ({
           <DialogTitle></DialogTitle>
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
-              src={"/muslim-user.png"}
+              src={imageUrl ?? "/muslim-user.png"}
               height={80}
               width={80}
               alt="muslim-user"
               className="size-[80px] bg-slate-500 rounded-full object-cover"
             />
-            <h1>User Name</h1>
+            <h1>{userName}</h1>
           </div>
           <div className="flex items-center justify-between">
             <Select value={result} onValueChange={(e) => setResult(e)}>

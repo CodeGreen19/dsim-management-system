@@ -78,7 +78,7 @@ export default function AddSpendingForm() {
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select donation type" />
+                    <SelectValue placeholder="Select spending type" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>

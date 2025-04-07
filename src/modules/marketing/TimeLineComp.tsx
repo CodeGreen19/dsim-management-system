@@ -116,19 +116,19 @@ export function TimelineComp() {
             </p>
             <div className="mb-8">
               <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-                📞 Phone: +880 1234 567 890
+                📞 Phone: +880 1924753973
               </div>
               <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-                📧 Email: info@madrashaexample.com
+                📧 Email: dsim.edu.management@gmail.com
               </div>
               <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-                📍 Address: 123 Islamic Street, Dhaka, Bangladesh
+                📍 Address: Collage Road, Damurhuda, Chuadanga
               </div>
               <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
                 🌐 Website: www.madrashaexample.com
               </div>
               <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-                🕋 Open Hours: Sat - Thu | 8:00 AM - 5:00 PM
+                🕋 Open Hours: 24/7
               </div>
             </div>
           </div>
