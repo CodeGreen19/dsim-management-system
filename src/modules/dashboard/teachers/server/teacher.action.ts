@@ -15,6 +15,7 @@ import { deleteFromCloude, uploadToCloude } from "@/lib/upload-image";
 import { handleServerError } from "@/lib/handle-server-error";
 import { salaryPayments, teachers } from "@/drizzle/schema";
 import { desc, eq } from "drizzle-orm";
+import { UploadImageType } from "../../students/types";
 
 export const createTeacher = async ({
   teacher,
@@ -29,21 +30,29 @@ export const createTeacher = async ({
       return { message: "Invalid data !" };
     }
 
-    const imgInfo = await uploadToCloude({
-      base64,
-      folder: "teacher",
-    });
-
     //insert data
-    await db.insert(teachers).values({
-      name: data.fullName,
-      phone: data.phone_number,
-      salaryAmount: Number(data.salary),
-      educationDes: data.education_des,
-      email: data.email,
-      imageUrl: imgInfo.secure_url,
-      imagePublicId: imgInfo.public_id,
-    });
+    const [teacherData] = await db
+      .insert(teachers)
+      .values({
+        name: data.fullName,
+        phone: data.phone_number,
+        salaryAmount: Number(data.salary),
+        educationDes: data.education_des,
+        email: data.email,
+      })
+      .returning();
+
+    if (base64) {
+      const imgInfo = await uploadToCloude({
+        base64,
+        folder: "teacher",
+      });
+
+      await db
+        .update(teachers)
+        .set({ imageUrl: imgInfo.secure_url, imagePublicId: imgInfo.public_id })
+        .where(eq(teachers.id, teacherData.id));
+    }
     return { message: "New Teacher Created " };
   } catch (error) {
     return handleServerError(error);
@@ -56,40 +65,51 @@ export const updateTeacher = async ({
   teacher: EditTeacherSchemaType;
   base64: string | null;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = editTeacherSchema.safeParse(teacher);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-      // delete existed profile,
+  try {
+    const { success, data } = editTeacherSchema.safeParse(teacher);
+    if (!success) {
+      return { message: "Invalid data !" };
+    }
+
+    // delete existed profile,
+    if (base64) {
       if (teacher.imagePublicId) {
         await deleteFromCloude(teacher.imagePublicId);
       }
+    }
 
+    // updation new images
+    let imageInfo: UploadImageType = { public_id: "", secure_url: "" };
+    if (base64) {
       const imgInfo = await uploadToCloude({
         base64,
         folder: "teacher",
       });
-
-      //insert data
-      await tx
-        .update(teachers)
-        .set({
-          name: data.name,
-          phone: data.phone,
-          salaryAmount: Number(data.salaryAmount),
-          educationDes: data.educationDes,
-          email: data.email,
-          imageUrl: imgInfo.secure_url,
-          imagePublicId: imgInfo.public_id,
-        })
-        .where(eq(teachers.id, teacher.id));
-      return { message: " Teacher Info Updated " };
-    } catch (error) {
-      return handleServerError(error);
+      imageInfo = imgInfo;
+    } else {
+      imageInfo = {
+        public_id: teacher.imagePublicId!,
+        secure_url: teacher.imageUrl!,
+      };
     }
-  });
+
+    //insert data
+    await db
+      .update(teachers)
+      .set({
+        name: data.name,
+        phone: data.phone,
+        salaryAmount: Number(data.salaryAmount),
+        educationDes: data.educationDes,
+        email: data.email,
+        imageUrl: imageInfo.secure_url,
+        imagePublicId: imageInfo.public_id,
+      })
+      .where(eq(teachers.id, teacher.id));
+    return { message: " Teacher Info Updated " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 
 export async function getAllTeachers() {
@@ -141,27 +161,25 @@ export const createTeacherSalary = async ({
   info: SalaryTeacherSchemaType;
   teacherId: string;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = salaryTeacherSchema.safeParse(info);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-
-      //insert data
-      await tx.insert(salaryPayments).values({
-        amountPaid: Number(data.amount),
-        paymentMethod: data.method,
-        bonus: Number(data.bonus),
-        teacherId,
-        notes: data.notes ? data.notes : "",
-      });
-
-      return { message: "New Records Created " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = salaryTeacherSchema.safeParse(info);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+
+    //insert data
+    await db.insert(salaryPayments).values({
+      amountPaid: Number(data.amount),
+      paymentMethod: data.method,
+      bonus: Number(data.bonus),
+      teacherId,
+      notes: data.notes ? data.notes : "",
+    });
+
+    return { message: "New Records Created " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };
 export const updateTeacherSalary = async ({
   info,
@@ -170,27 +188,25 @@ export const updateTeacherSalary = async ({
   info: SalaryTeacherSchemaType;
   recordId: string;
 }) => {
-  return await db.transaction(async (tx) => {
-    try {
-      const { success, data } = salaryTeacherSchema.safeParse(info);
-      if (!success) {
-        return { message: "Invalid data !" };
-      }
-
-      //insert data
-      await tx
-        .update(salaryPayments)
-        .set({
-          amountPaid: Number(data.amount),
-          paymentMethod: data.method,
-          bonus: Number(data.bonus),
-          notes: data.notes ? data.notes : "",
-        })
-        .where(eq(salaryPayments.id, recordId));
-
-      return { message: " Record Updated " };
-    } catch (error) {
-      return handleServerError(error);
+  try {
+    const { success, data } = salaryTeacherSchema.safeParse(info);
+    if (!success) {
+      return { message: "Invalid data !" };
     }
-  });
+
+    //insert data
+    await db
+      .update(salaryPayments)
+      .set({
+        amountPaid: Number(data.amount),
+        paymentMethod: data.method,
+        bonus: Number(data.bonus),
+        notes: data.notes ? data.notes : "",
+      })
+      .where(eq(salaryPayments.id, recordId));
+
+    return { message: " Record Updated " };
+  } catch (error) {
+    return handleServerError(error);
+  }
 };

@@ -50,7 +50,7 @@ export default function AddDonationForm() {
   const { isPending, mutate } = useMutation({
     mutationFn: createDonation,
     onSuccess: async (info) => {
-      await showMessageOrError(info, qc, ["donations"]);
+      await showMessageOrError(info, qc, ["donations", "donationsData"]);
       if (info.message) {
         form.reset();
       }

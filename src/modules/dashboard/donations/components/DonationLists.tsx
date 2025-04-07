@@ -58,6 +58,13 @@ export default function DonationList() {
                 <span className="font-medium">Created At:</span>{" "}
                 {donation.createdAt.toDateString()}
               </p>
+              {donation.updatedAt.toDateString() !==
+                donation.createdAt.toDateString() && (
+                <p className="text-sm text-yellow-500">
+                  <span className="font-medium">Updated At:</span>{" "}
+                  {donation.updatedAt.toDateString()}
+                </p>
+              )}
               <div className="flex gap-2 mt-3">
                 <Dialog>
                   <DialogTrigger asChild>

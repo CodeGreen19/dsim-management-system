@@ -87,7 +87,7 @@ export default function UpdateStudentInfoForm({
   const { isPending, mutate } = useMutation({
     mutationFn: updateStudent,
     onSuccess: async (info) => {
-      await showMessageOrError(info, qc, ["single_student"]);
+      await showMessageOrError(info, qc, ["single_student", "table_students"]);
     },
   });
   async function onSubmit(values: UpdateStudentSchemaType) {

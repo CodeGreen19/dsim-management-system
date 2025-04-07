@@ -15,7 +15,7 @@ export const paymentMethodEnum = pgEnum("payment_method", SALARY_PAYMENTS_BD);
 export const teachers = pgTable("teachers", {
   id,
   name: text("name").notNull(),
-  email: text("email").unique(),
+  email: text("email"),
   phone: text("phone").notNull(),
   educationDes: text("education_des").notNull(),
   imageUrl: text("image_url"),
@@ -41,6 +41,7 @@ export const salaryPayments = pgTable("salary_payments", {
   paymentMethod: paymentMethodEnum("payment_method").notNull(), // Cash, Bank Transfer, etc.
   notes: text("notes"),
   createdAt,
+  updatedAt,
 });
 
 export const salaryPaymentsRelations = relations(salaryPayments, ({ one }) => ({

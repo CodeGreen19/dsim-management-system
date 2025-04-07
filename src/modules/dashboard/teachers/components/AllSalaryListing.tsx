@@ -61,6 +61,13 @@ export default function AllSalaryListing() {
                 <span className="font-medium">Created At:</span>{" "}
                 {salary.createdAt.toDateString()}
               </p>
+              {salary.updatedAt.toDateString() !==
+                salary.createdAt.toDateString() && (
+                <p className="text-sm text-yellow-500">
+                  <span className="font-medium">Created At:</span>{" "}
+                  {salary.updatedAt.toDateString()}
+                </p>
+              )}
               <div className="flex gap-2 mt-3">
                 <Dialog>
                   <DialogTrigger asChild>

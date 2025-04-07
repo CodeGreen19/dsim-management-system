@@ -30,7 +30,9 @@ export const userLogin = async (loginInfo: LoginFormSchemaType) => {
       httpOnly: true,
       path: "/",
       sameSite: "strict",
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
+      expires: 60 * 60 * 24 * 365,
+      maxAge: 60 * 60 * 24 * 365,
     });
 
     return { message: "Login successfull" };
@@ -50,7 +52,7 @@ export const isAuth = async () => {
   const now = Math.floor(Date.now() / 1000); // current time in seconds
   const isExpired = decoded.exp < now;
 
-  if (decoded.userName === env.ADMIN_USERNAME && !isExpired) {
+  if (!isExpired) {
     return true;
   } else {
     cookieStore.delete("auth_token");

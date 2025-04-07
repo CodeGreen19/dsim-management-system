@@ -155,6 +155,27 @@
       "when": 1743587000215,
       "tag": "0021_flashy_jetstream",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1744026986428,
+      "tag": "0022_hard_pestilence",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1744030782868,
+      "tag": "0023_absurd_tyrannus",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1744032305547,
+      "tag": "0024_flaky_george_stacy",
+      "breakpoints": true
     }
   ]
 }

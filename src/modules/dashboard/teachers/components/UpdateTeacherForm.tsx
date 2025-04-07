@@ -66,6 +66,7 @@ export default function EditUpdateTeacher({
 
   async function onSubmit(values: EditTeacherSchemaType) {
     console.log(values);
+    console.log(files?.length);
 
     if (files?.length) {
       const base64 = await getBase64String(files[0]);

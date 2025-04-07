@@ -39,3 +39,11 @@ export const getFeesRecords = async (studentId: string) => {
     .from(studentFees)
     .where(eq(studentFees.studentId, studentId));
 };
+export const deleteFeesRecords = async (feesId: string) => {
+  try {
+    await db.delete(studentFees).where(eq(studentFees.id, feesId));
+    return { message: "Deleted" };
+  } catch (error) {
+    return handleServerError(error);
+  }
+};

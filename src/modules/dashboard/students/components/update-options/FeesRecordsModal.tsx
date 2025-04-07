@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -16,10 +17,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Loading from "@/modules/dashboard/components/Loading";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import { ReactNode, useState } from "react";
-import { getFeesRecords } from "../../server/fees.action";
+import { deleteFeesRecords, getFeesRecords } from "../../server/fees.action";
+import { showMessageOrError } from "@/lib/show-message-error";
 
 const FessRecordsModal = ({
   children,
@@ -29,9 +31,17 @@ const FessRecordsModal = ({
   studentId: string;
 }) => {
   const [search, setSearch] = useState("");
+  const qc = useQueryClient();
   const { mutate, data, isPending } = useMutation({
     mutationKey: ["student_record"],
     mutationFn: getFeesRecords,
+  });
+  const { mutate: deleteMutate, isPending: deletePending } = useMutation({
+    mutationKey: ["student_record"],
+    mutationFn: deleteFeesRecords,
+    onSuccess: async (info) => {
+      await showMessageOrError(info, qc, ["salary_records"]);
+    },
   });
 
   const filteredRecords =
@@ -61,7 +71,7 @@ const FessRecordsModal = ({
               <div className="flex justify-between mb-4">
                 <h2 className="text-xl font-semibold">Fees Records</h2>
                 <Input
-                  placeholder="Search by month, year, or student ID"
+                  placeholder="Search by month"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-64"
@@ -80,22 +90,35 @@ const FessRecordsModal = ({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredRecords?.map((record) => (
-                      <TableRow key={record.id}>
-                        <TableCell>{record.mealFees} taka</TableCell>
-                        <TableCell>{record.educationFees} taka</TableCell>
-                        <TableCell>{record.month}</TableCell>
-                        <TableCell>{record.year || "N/A"}</TableCell>
-                        <TableCell>
-                          <span className="text-xs text-blue-500">
-                            {record.createdAt.toDateString()}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <Trash2 className="size-4 text-red-400" />
-                        </TableCell>
+                    {filteredRecords?.length !== 0 ? (
+                      filteredRecords?.map((record) => (
+                        <TableRow key={record.id}>
+                          <TableCell>{record.mealFees} taka</TableCell>
+                          <TableCell>{record.educationFees} taka</TableCell>
+                          <TableCell>{record.month}</TableCell>
+                          <TableCell>{record.year || "N/A"}</TableCell>
+                          <TableCell>
+                            <span className="text-xs text-blue-500">
+                              {record.createdAt.toDateString()}
+                            </span>
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              variant={"ghost"}
+                              disabled={deletePending}
+                              className="cursor-pointer"
+                              onClick={() => deleteMutate(record.id)}
+                            >
+                              <Trash2 className="size-4 text-red-400" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell>No Data Exists</TableCell>
                       </TableRow>
-                    ))}
+                    )}
                   </TableBody>
                 </Table>
               </div>

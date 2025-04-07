@@ -1,6 +1,6 @@
 import { DONATION_ARR } from "@/modules/dashboard/donations/constants";
 import { integer, pgEnum, pgTable, text, varchar } from "drizzle-orm/pg-core";
-import { createdAt, id } from "../schemaHelper";
+import { createdAt, id, updatedAt } from "../schemaHelper";
 
 export const donationEnum = pgEnum("donation_type", DONATION_ARR);
 
@@ -12,4 +12,5 @@ export const donations = pgTable("donations", {
   donationDetails: text("donation_details").notNull(),
   donorName: varchar("donor_name", { length: 255 }).notNull(),
   createdAt,
+  updatedAt,
 });
